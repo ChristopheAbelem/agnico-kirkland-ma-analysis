@@ -56,9 +56,9 @@ with tabs[0]:
     c2.metric("AISC growth 2022–2025", f"{aisc_chg['AEM']:.0f}%",
               f"{aisc_chg['AEM'] - peers_aisc:+.0f} pts vs peers", delta_color="inverse")
     c3.metric("Reported synergies through 2023", f"~${round(reported, -1):.0f}M",
-              f"of ${target:.0f}M 5-year target", delta_color="off")
+              f"of ${target:.0f}M 5-year target", delta_color="off", delta_arrow="off")
     c4.metric("P/E premium vs peers (2025)", f"{pe_prem:.0f}%",
-              f"{pe25['AEM_PE']:.1f}x vs {peers_pe:.1f}x", delta_color="off")
+              f"{pe25['AEM_PE']:.1f}x vs {peers_pe:.1f}x", delta_color="off", delta_arrow="off")
 
     st.caption(
         "Peers: Newmont (NEM) and Barrick (B). Returns are dividend-adjusted, Sep 28, 2021 to "
