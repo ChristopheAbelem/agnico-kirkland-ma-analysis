@@ -207,13 +207,14 @@ with tabs[3]:
     base = load("aisc_baseline", index_col="Year").rename(columns={"AEM (pro forma)": "AEM"})
     c4.subheader("All-in sustaining cost (AISC) per ounce")
     show2021 = c4.checkbox("Include 2021 pro forma baseline (estimate)")
-    scale = c4.radio("Scale", ["USD per ounce", "Indexed (first year = 100)"], horizontal=True)
+    scale = c4.radio("Scale", ["USD/oz", "Rebased to 100"], horizontal=True)
     data = pd.concat([base.loc[[2021]], aisc]) if show2021 else aisc
-    if scale != "USD per ounce":
-        data = data / data.iloc[0] * 100
+    if scale == "Rebased to 100":
+       data = data / data.iloc[0] * 100
+    y_label = "AISC (USD/oz)" if scale == "USD/oz" else "Index (base year = 100)"
     fig = px.line(data, markers=True, color_discrete_map=COLORS,
-                  labels={"value": scale, "Year": "", "variable": ""})
-    fig.update_xaxes(dtick=1)
+                  labels={"value": y_label, "Year": "", "variable": ""})
+    fig.update_xaxes(tickmode="array", tickvals=list(data.index))
     c4.plotly_chart(fig, use_container_width=True)
     c4.caption(
         "AEM's AISC rose 23% from 2022 to 2025 against 33% at Newmont and 34% at Barrick (about "
@@ -231,7 +232,7 @@ with tabs[3]:
                                       "Detour Lake, July 2022 plan": "#2e7d32",
                                       "AEM company-wide": "#1f77b4"})
     fig.for_each_trace(lambda t: t.update(line_dash="dash") if "plan" in t.name else None)
-    fig.update_xaxes(dtick=1)
+    fig.update_xaxes(tickmode="array", tickvals=[2022, 2023, 2024, 2025])
     st.plotly_chart(fig, use_container_width=True)
     st.caption(
         "Detour Lake is the largest mine AEM inherited from Kirkland Lake. Its total cash costs rose 34% "
