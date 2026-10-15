@@ -69,7 +69,7 @@ with tabs[0]:
 with tabs[1]:
     st.subheader("Deal terms")
     terms = pd.DataFrame({
-        "Item": ["Structure", "Exchange ratio", "Implied price", "Premium", "Announced", "Closed"],
+        "Item": ["Structure", "Exchange ratio", "Implied price", "Premium / discount", "Announced", "Closed"],
         "Detail": [
             "All-stock merger of equals",
             "0.7935 AEM shares per KL share",
@@ -95,10 +95,10 @@ with tabs[1]:
     st.plotly_chart(fig, use_container_width=True)
 
     st.caption(
-        "Realized: about $40M corporate by mid-2022 and $22M operational in 2022. Guidance: about "
-        "$50M corporate and $40M operational for 2023 (not actuals). No company totals after 2023 "
+        "Realized: about \\$40M corporate by mid-2022 and \\$22M operational in 2022. Guidance: about "
+        "\\$50M corporate and \\$40M operational for 2023 (not actuals). No company totals after 2023 "
         "were found, and the five-year window has not ended. At full run-rate, operational synergies "
-        "are estimated at up to $30–40 per ounce, about 4–5% of unit cash costs."
+        "are estimated at up to \\$30–40 per ounce, about 4–5% of unit cash costs."
     )
 
 with tabs[2]:
@@ -107,6 +107,7 @@ with tabs[2]:
     st.subheader("Share price, indexed to 100")
     col1, col2 = st.columns([1, 2])
     tickers = col1.multiselect("Companies", ["AEM", "NEM", "B"], default=["AEM", "NEM", "B"])
+    tickers = [t for t in ["AEM", "NEM", "B"] if t in tickers]
     start, end = col2.slider(
         "Period",
         min_value=prices.index.min().date(),
@@ -218,7 +219,7 @@ with tabs[3]:
     c4.plotly_chart(fig, use_container_width=True)
     c4.caption(
         "AEM's AISC rose 23% from 2022 to 2025 against 33% at Newmont and 34% at Barrick (about "
-        "$150–165 per ounce less cost growth). Reported synergies ($30–40 per ounce at full run-rate) "
+        "\\$150–165 per ounce less cost growth). Reported synergies (\\$30–40 per ounce at full run-rate) "
         "explain at most a fifth to a quarter of that gap. Definitions differ across companies, so "
         "compare changes, not levels. The 2021 AEM value combines AEM and Kirkland Lake (estimate)."
     )
@@ -237,8 +238,8 @@ with tabs[3]:
     st.caption(
         "Detour Lake is the largest mine AEM inherited from Kirkland Lake. Its total cash costs rose 34% "
         "from 2022 to 2025, against 23% company-wide, and ended 46% above the July 2022 plan, which "
-        "assumed $1,500 gold (higher gold prices raise royalties). The reported Detour synergy (about "
-        "$15–22 per ounce) is too small to be visible here, so this test is uninformative about synergies."
+        "assumed \\$1,500 gold (higher gold prices raise royalties). The reported Detour synergy (about "
+        "\\$15–22 per ounce) is too small to be visible here, so this test is uninformative about synergies."
     )
 
 with tabs[4]:
